@@ -10,7 +10,6 @@ class SubWordTokenizer:
             self.vocab = {0: "Ġ"}
 
         self.merge_rules = []
-        self.vocab_size = len(self.vocab.keys())
         self.max_size = max_size
 
     def __call__(self, sequence, merge_limit=500):
@@ -186,58 +185,6 @@ class SubWordTokenizer:
 
         return new_sequence
 
-
-swt = SubWordTokenizer()
-sequence = ("the cat sat on the mat. the dog sat on the mat. the cat chased the mouse."
-            " the mouse ran quickly under the wooden table. the dog barked loudly at the cat. "
-            "the cat and the dog slowly became friends. the friends played together in the garden every day. "
-            "the garden was large and full of colorful flowers. the flowers were red, blue, yellow, and purple. "
-            "the sun was shining brightly and the weather was warm and pleasant. suddenly the weather changed "
-            "and heavy rain started falling. the cat ran quickly inside the house. the dog followed the cat into "
-            "the house because it was scared of the rain. inside the house it was warm, dry, and quiet. the cat "
-            "slept peacefully on the soft sofa. the dog slept on the wooden floor near the door. they both dreamed "
-            "of chasing the small mouse again in the garden. sometimes they woke up and looked outside at the rainy "
-            "weather. other times they stayed asleep and dreamed of sunny days. the garden became green again after "
-            "the rain stopped. flowers started growing again and bees came to visit them. the cat watched the bees "
-            "while sitting on the window. the dog watched the cat and wagged its tail slowly. the mouse returned when "
-            "the house became quiet again. it ran across the floor and under the table very quickly. the cat noticed it "
-            "immediately and started chasing it again. the dog watched but did not move. the weather outside became stormy "
-            "and loud thunder filled the sky. rain hit the windows and the wind shook the trees. inside, the cat and dog "
-            "stayed warm and safe. after the storm passed, the sun returned and everything became bright again. "
-            "the garden looked fresh and new with water on the leaves. birds flew back into the trees and started "
-            "singing again. the cat and dog went outside and explored the garden together. they moved slowly through "
-            "the grass and watched insects moving around. the mouse hid again but no one chased it this time. everything "
-            "felt calm, peaceful, and quiet in the garden.")
-
-encoded = swt(sequence)
-print(f"Original tokens: {len(sequence)}\nEncoded tokens: {len(encoded)}")
-
-print(len(swt.vocab))
-
-sequence2 = ("The quick brown fox jumped over the old wooden fence just before sunrise. "
-             "A cool breeze moved through the trees while birds sang from every branch. "
-             "Emma walked along the narrow path carrying a small backpack filled with notebooks, pencils, "
-             "and a bottle of water. She had planned this trip for weeks because she wanted a quiet place "
-             "where she could think, write, and read without interruptions. Every few minutes she stopped "
-             "to observe the wildlife around her. A squirrel climbed a nearby oak tree, a rabbit disappeared "
-             "into the bushes, and a butterfly landed briefly on a bright yellow flower before flying away. "
-             "As the morning became warmer, the forest grew busier. Hikers greeted one another with friendly"
-             " smiles, children laughed as they explored the trails, and a family stopped beside a stream to"
-             " eat breakfast together. The sound of flowing water mixed with the rustling leaves, creating a"
-             " peaceful atmosphere. Emma sat on a large flat rock, opened her notebook, and began writing"
-             " about everything she had seen during the walk. She described the colours of the flowers, the"
-             " changing light beneath the trees, and the feeling of calm that surrounded her. Later that "
-             "afternoon dark clouds gathered in the distance, and a gentle rain began to fall. Instead of "
-             "rushing home, Emma found shelter beneath a wooden picnic shelter and continued reading her "
-             "favourite novel. The rain lasted only twenty minutes before the sun returned, leaving tiny "
-             "drops of water sparkling on every leaf and blade of grass. As she packed her belongings, "
-             "she realised the day had been exactly what she needed. It reminded her that even a short journey"
-             " into nature could provide inspiration, reduce stress, and create lasting memories. Before leaving"
-             " the forest, she took one final look at the winding path and promised herself that she would return"
-             " again before the end of summer.")
-
-encoded2 = swt(sequence2)
-decoded2 = swt.decode(encoded2)
-
-for i in range(len(encoded2)):
-    print(encoded2[i:i + 10])
+    @property
+    def vocab_size(self):
+        return len(self.vocab.values())
